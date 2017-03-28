@@ -4,23 +4,20 @@ var prompt = require('prompt');
 
 var tw = new Twit(config);
 
-var userPrompt;
-
+// request prompt
 prompt.start();
 
 prompt.get(['message'], function(err, result) {
-  userPrompt = result.message;
   console.log('Input received');
-  postMessage();
+  postMessage(result.message);
 });
 
-function postMessage() {
-  var twitText = {
-    status: userPrompt
-  };
-  tw.post('statuses/update', twitText, showResult);
+// post message
+function postMessage(message) {
+  tw.post('statuses/update', { status: message }, showResult);
 }
 
+// show errors, logs
 function showResult(err, data, response) {
   if (err) {
     console.log('Posting error: ' + err.message);
