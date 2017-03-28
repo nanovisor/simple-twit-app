@@ -4,18 +4,34 @@ var prompt = require('prompt');
 
 var tw = new Twit(config);
 
+// config for searching
 var params = {
   q: 'duck',
   count: 10,
   result_type: 'popular'
 };
 
-tw.get('search/tweets', params, gotData);
+// request prompt
+prompt.start();
 
-function gotData(err, data, res) {
-  var statuses = data.statuses;
+prompt.get(['search'], function(err, result) {
+  params.q = result.search;
+  console.log('searching ' + result.search);
+  search();
+});
 
-  for (var i = 0; i < statuses.length; i++) {
-    console.log(statuses[i].user.name + '\n' + statuses[i].text + '\n');
+// send request
+function search() {
+  tw.get('search/tweets', params, processData);
+}
+
+// process response
+function processData(err, data, res) {
+
+  for (var i = 0; i < data.statuses.length; i++) {
+    var name = data.statuses[i].user.name;
+    var text = data.statuses[i].text;
+
+    console.log(name + '\n' + text + '\n');
   }
 }
