@@ -1,0 +1,16 @@
+{
+  "name": "twitapp",
+  "version": "1.0.0",
+  "description": "simple get, post app",
+  "main": "index.js",
+  "scripts": {
+    "get": "node twit-get.js",
+    "post": "node twit-post.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "prompt": "^1.0.0",
+    "twit": "^2.2.5"
+  }
+}
